@@ -16,7 +16,7 @@ exports.getTokenFromHeader = async (req, res, next) => {
             code: 401
         })
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
     // { id: 1, role: 'admin', iat: 1638613563, exp: 1641205563 }
 
     let sql;
@@ -37,7 +37,7 @@ exports.getTokenFromHeader = async (req, res, next) => {
         }
         req.user = user[0];
         res.locals.user = user[0];
-        next()
+        next();
     });
 };
 
